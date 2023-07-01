@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" style="overflow: auto">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!-- Popper JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+  <link rel="stylesheet" href="style2.css">
+  <script src="app.js"></script>
+
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-7">
+        <div class="center">
+          <h1 id="header" class="contactHeader" style="font-family: sans-serif;">Contact Us</h1>
+
+          <form id='registration-form-contactus'>
+            <div class="textfield">
+              <input type="text" id="name" required>
+              <span></span>
+              <label>Name*</label>
+            </div>
+            <div class="textfield">
+              <input type="text" id="email" required>
+              <span></span>
+              <label>Email*</label>
+            </div>
+            <div class="dropdown" id="dropdownChoise">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                data-toggle="dropdown" aria-expanded="false" style="background-color: #2691d9;">
+                Contact us concerning*
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+              </ul>
+            </div>
+            <div class="form-floating">
+              <label for="floatingTextarea">Subject*</label>
+              <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+            </div>
+            <button onclick="sendPost('contactus')" class="submitButtForContact">Submit</button>
+          </form>
+
+        </div>
+      </div>
+
+      <div class="col-md-1"></div>
+
+      <div class="col-md-4">
+        <div class="row">
+          <div class="center">
+            <div class="row">
+              <div class="contactImg">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-headset"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M8 1a5 5 0 0 0-5 5v1h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a6 6 0 1 1 12 0v6a2.5 2.5 0 0 1-2.5 2.5H9.366a1 1 0 0 1-.866.5h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 .866.5H11.5A1.5 1.5 0 0 0 13 12h-1a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h1V6a5 5 0 0 0-5-5z" />
+                </svg>
+              </div>
+              <span></span>
+              <label class="supportLabel">NEED 24/7 SUPPORT</label>
+              <!-- <br><br> -->
+              <div class="contactBtn">
+                <button class="submitButtForContact">CONTACT SUPPORT</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <br><br>
+        </div>
+
+        <div class="center">
+          <div class="row">
+            <div class="col-md-2">
+              <div class="img">
+                <svg xmlns="http://www.w3.org/2000/svg" width="35" height="25" fill="currentColor"
+                  class="bi bi-telephone-inbound-fill" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd"
+                    d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511zM15.854.146a.5.5 0 0 1 0 .708L11.707 5H14.5a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 1 0v2.793L15.146.146a.5.5 0 0 1 .708 0z" />
+                </svg>
+              </div>
+            </div>
+            <div class="col-md-10">
+              <div class="text">
+                <p class="boldTxt">CALL SALES NOW <br> +1-512-82703500</p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2">
+              <div class="img">
+                <svg xmlns="http://www.w3.org/2000/svg" width="35" height="25" fill="currentColor" class="bi bi-clock"
+                  viewBox="0 0 16 16">
+                  <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" />
+                  <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z" />
+                </svg>
+              </div>
+            </div>
+            <div class="col-md-10">
+              <div class="text">
+                <label class="boldTxt">SALES HOURS</label>
+                <br>
+                <label style="font-size: 12px;">25am - 7pm CST</label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-10">
+              <div class="text">
+                <label class="boldTxt">SALES CONTACT INFO</label><br>
+                <label style="font-size: 12px;">edenamir@gmail.com <br> +1-123-8876234</label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2">
+              <div class="img">
+                <svg xmlns="http://www.w3.org/2000/svg" width="35" height="25" fill="currentColor"
+                  class="bi bi-envelope" viewBox="0 0 16 16">
+                  <path
+                    d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
+                </svg>
+              </div>
+            </div>
+            <div class="col-md-10">
+              <div class="text">
+                <label class="boldTxt">MAILING ADDRESS</label><br>
+                <label style="font-size: 12px;">myCompantName <br> myAdress.. <br> Austin, Texas 239487</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Update the dropdown button text when an item is selected
+    $('.dropdown-item').on('click', function () {
+      var selectedItem = $(this).text();
+      $('#dropdownMenuButton1').text(selectedItem);
+    });
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style2.css">
+    <!-- Head section content -->
+</head>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+<body>
+    <!-- HTML body content -->
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="input-group mb-3">
+                    <input type="text" id="stock-input" class="form-control" placeholder="Enter stock symbol"
+                        aria-label="Stock symbol" aria-describedby="search-btn">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary search-btn" id="search-btn" type="button">Search</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Price</th>
+                        <th>Daily Change</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="stock-table-body">
+                    <!-- Table rows will be dynamically added here -->
+                </tbody>
+            </table>
+        </div>
+        <div id="chartContainer"></div>
+        <button class="btn btn-danger" id="clear-btn" type="button">Clear All</button>
+    </div>
+
+    <!-- Stock Graph Modal -->
+    <div class="modal fade" id="graphModal" tabindex="-1" role="dialog" aria-labelledby="graphModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="graphModalLabel">Stock Price History</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="stock-graph"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        $(document).ready(function () {
+            var listOfStock = [];
+            // Function to render stock information in the table
+            function renderStock(stock) {
+                var priceChange = parseFloat(stock.price) - parseFloat(stock.open);
+                var priceChangePercentage = (priceChange / parseFloat(stock.open)) * 100;
+                var priceChangeColor = priceChangePercentage >= 0 ? 'green' : 'red';
+
+                var row = `<tr data-symbol="${stock.symbol}">
+                    <td class="stock-symbol">${stock.symbol}</td>
+                    <td>${stock.open}</td>
+                    <td style="color: ${priceChangeColor}">${priceChangePercentage.toFixed(2)}%</td>
+                    <td>
+                        <button class="btn btn-sm btn-danger delete-btn" data-symbol="${stock.symbol}">Delete</button>
+                    </td>
+                </tr>`;
+                $('#stock-table-body').append(row);
+
+            }
+
+            // Function to clear the table
+            function clearTable() {
+                $('#stock-table-body').empty();
+            }
+            
+            // Function to handle the search button click
+            $('#search-btn').click(function () {
+                var stockSymbol = $('#stock-input').val();
+                console.log(stockSymbol);
+                if (!listOfStock.includes(stockSymbol))
+                {
+                // Make an AJAX request to the server API
+                    $.ajax({
+                        url: '/stocktable',
+                        method: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify({ symbol: stockSymbol }),
+                        success: function (response) {
+                            // Render the received stock information in the table
+                            renderStock(response);
+                            listOfStock.push(stockSymbol)
+                        },
+                        error: function () {
+                            alert('Failed to fetch stock information');
+                        }
+                    });
+                }
+            });
+            var deleteCliked = false;
+            // Function to handle the delete button click
+            $(document).on('click', '.delete-btn', function () {
+                var stockSymbol = $(this).data('symbol');
+                deleteCliked = true;
+                // Remove the table row with the matching stock symbol
+                $(`tr[data-symbol="${stockSymbol}"]`).remove();
+                $('#chartContainer').empty();
+            });
+
+            // Function to handle the clear button click
+            $('#clear-btn').click(function () {
+                // Clear the table
+                clearTable();
+            });
+            // Function to handle row click and fetch stock graph data from the server
+            $(document).on('click', '#stock-table-body tr', function () {
+                var stockSymbol = $(this).data('symbol');
+                if (deleteCliked == false) {    // Make an AJAX request to the server for stock graph data
+                    $.ajax({
+                        url: '/stockgraph',
+                        method: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify({ symbol: stockSymbol }),
+                        success: function (response) {
+
+                            getting_data(response, stockSymbol);
+                        },
+                        error: function () {
+                            alert('Failed to fetch stock graph data');
+                        }
+                    });
+                }
+                else {
+                    deleteCliked = false;
+                }
+            });
+
+            function getting_data(data, symbol) {
+                dpsArr = []
+                var date = data["Time Series (Daily)"]
+                let a = 20;
+                let b = 7;
+                for (var d in date) {
+                    var r = d.split("-");
+                    if (a-- > 0) {
+                        var value = date[d];
+                        dpsArr.unshift({ x: new Date(parseInt(r[0]), parseInt(r[1]) - 1, parseInt(r[2])), y: parseFloat(value["1. open"]) });
+
+                    } else {
+                        break;
+                    }
+                }
+
+                graph(dpsArr, symbol);
+
+            }
+
+            function graph(dps, company) {
+                chart = new CanvasJS.Chart("chartContainer", {
+                    title: {
+                        text: company
+                    },
+                    animationEnabled: true,
+                    theme: "light2",
+                    axisY: {
+                        title: "Open Prices",
+                        includeZero: false
+                    },
+                    axisX: {
+                        title: "Date",
+                        valueFormatString: "DD-MMM"
+                    },
+                    data: [{
+                        type: "line",
+                        indexLabelFontSize: 16,
+                        dataPoints: dps
+                    }]
+                });
+                chart.options.data[0].dataPoints = dps;
+                chart.render();
+            }
+
+        });
+
+
+
+    </script>
+</body>
+
+</html>

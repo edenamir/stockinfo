@@ -16,26 +16,26 @@ const uri = "mongodb+srv://forfinleproject:64hSSHCWGnr6CAe0@userandpass.lhfugmo.
 const User = require('./models/users');
 
 
-app.get('/', (req, res) => {
+app.get(__dirname +'/', (req, res) => {
     res.sendFile(path.join(__dirname + '/signin.html'));
 })
 
-app.get('/signin', function (req, res) {
+app.get(__dirname +'/signin', function (req, res) {
     res.sendFile(path.join(__dirname + '/signin.html'));
 })
 
-app.get('/signup', function (req, res) {
+app.get(__dirname +'/signup', function (req, res) {
     res.sendFile(path.join(__dirname + '/signup.html'));
 })
-app.get('/contactus', function (req, res) {
+app.get(__dirname +'/contactus', function (req, res) {
     res.sendFile(path.join(__dirname + '/contactUs.html'));
 })
 
-app.get('/stocktable', function (req, res) {
+app.get(__dirname +'/stocktable', function (req, res) {
     res.sendFile(path.join(__dirname + '/stocktable.html'));
 })
 
-app.post('/login', async (req, res) => {
+app.post(__dirname +'/login', async (req, res) => {
     const { username, password } = req.body;
 
     if (username === 'Admin' && password === 'Admin') {
@@ -100,7 +100,7 @@ var sender = nodemailer.createTransport({
 
 });
 
-app.post('/signup', async (req, res) => {
+app.post(__dirname +'/signup', async (req, res) => {
 
     const { username, password } = req.body;
     var result;
@@ -151,7 +151,7 @@ app.post('/signup', async (req, res) => {
 
 );
 
-app.post('/contactus', function (req, res) {
+app.post(__dirname +'/contactus', function (req, res) {
 
     const { name, email, text, floatingTextarea } = req.body;
     var mailOptions = {
@@ -178,7 +178,7 @@ app.post('/contactus', function (req, res) {
 );
 
 
-app.post('/stocktable', async (req, res) => {
+app.post(__dirname +'/stocktable', async (req, res) => {
     const stockSymbol = req.body.symbol;
     const apiKey = 'ETBPRWERSHGXQV2X';
 
@@ -220,7 +220,7 @@ app.post('/stocktable', async (req, res) => {
 });
 
 
-app.post('/stockgraph', async (req, res) => {
+app.post(__dirname +'/stockgraph', async (req, res) => {
     const symbol = req.body.symbol;
     const api = 'ETBPRWERSHGXQV2X';
     axios

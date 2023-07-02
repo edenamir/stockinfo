@@ -16,7 +16,7 @@ const uri =
   "mongodb+srv://forfinleproject:64hSSHCWGnr6CAe0@userandpass.lhfugmo.mongodb.net/?retryWrites=true&w=majority";
 const User = require("./models/users");
 
-app.get("/", (req, res) => {
+app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname + "/public/signin.html"));
 });
 

@@ -17,7 +17,7 @@ const uri =
 const User = require("./models/users");
 
 app.get("/", function (req, res) {
-  res.redirect("/public/signin.html");
+  res.redirect("signin");
 });
 
 app.get("/signin", function (req, res) {

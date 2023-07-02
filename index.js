@@ -7,7 +7,7 @@ var path = require('path');
 var bcrypt = require('bcrypt');
 var bodyParser = require('body-parser') //parse request parameters
 var fs = require('fs');
-app.use(express.static(__dirname));  //specifies the root directory from which to serve static assets [images, CSS files and JavaScript files]
+app.use(express.static(__dirname+'/public'));  //specifies the root directory from which to serve static assets [images, CSS files and JavaScript files]
 app.use(bodyParser.urlencoded({ extended: true })); //parsing bodies from URL. extended: true specifies that req.body object will contain values of any type instead of just strings.
 app.use(bodyParser.json()); //for parsing json objects
 const mongoose = require('mongoose');

@@ -1,5 +1,5 @@
 # stockinfo
-This is a simple website. To view it [click here](stockinfo-alpha.vercel.app)
+This is a simple website. To view it [click here]([stockinfo-alpha.vercel.app](https://stockinfo-git-main-edenamir.vercel.app/signin))
 
 Instalaion:
 To run the project first install all the node modules:

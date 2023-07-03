@@ -1,5 +1,5 @@
 # stockinfo
-This is a simple website. To view it click here. 
+This is a simple website. To view it [click here](stockinfo-alpha.vercel.app)
 
 Instalaion:
 To run the project first install all the node modules:

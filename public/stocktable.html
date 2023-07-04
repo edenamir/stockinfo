@@ -97,18 +97,18 @@
             $('#search-btn').click(function () {
                 var stockSymbol = $('#stock-input').val();
                 console.log(stockSymbol);
-                if (!listOfStock.includes(stockSymbol))
+                if (!listOfStock.includes(stockSymbol.toLowerCase()))
                 {
                 // Make an AJAX request to the server API
                     $.ajax({
                         url: '/stocktable',
                         method: 'POST',
                         contentType: 'application/json',
-                        data: JSON.stringify({ symbol: stockSymbol }),
+                        data: JSON.stringify({ symbol: stockSymbol.toLowerCase() }),
                         success: function (response) {
                             // Render the received stock information in the table
                             renderStock(response);
-                            listOfStock.push(stockSymbol)
+                            listOfStock.push(stockSymbol.toLowerCase())
                         },
                         error: function () {
                             alert('Failed to fetch stock information');
